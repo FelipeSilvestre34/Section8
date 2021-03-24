@@ -15,12 +15,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'felipe'
 api = Api(app)
 
-#cria todas as tabelas necessárias para que o app rode
-
 jwt = JWT(app, authenticate, identity)
 
-
-#http://127.0.0.1:5000/
 api.add_resource(Store, '/store/<string:name>')
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(ItemList, '/items')

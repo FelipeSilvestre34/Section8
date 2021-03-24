@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
-from Db import db, security
 
 from security import authenticate, identity
 from Resources.user import UserRegister
@@ -11,13 +10,10 @@ from Resources.store import Store, StoreList
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Section6.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = security
+app.secret_key = 'felipe'
 api = Api(app)
 
 #cria todas as tabelas necessárias para que o app rode
-@app.before_first_request
-def create_table():
-    db.create_all()
 
 jwt = JWT(app, authenticate, identity)
 
@@ -31,5 +27,6 @@ api.add_resource(UserRegister, '/register')
 
 
 if __name__ == '__main__':
+    from Db import db
     db.init_app(app)
     app.run(port=5000, debug=True)

@@ -4,14 +4,13 @@ from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
 
+
 from security import authenticate, identity
 from Resources.user import UserRegister
 from Resources.item import Item, ItemList
 from Resources.store import Store, StoreList
 
 app = Flask(__name__)
-
-app.config['DEBUG'] = True
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///Section8.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -32,9 +31,5 @@ api.add_resource(UserRegister, '/register')
 if __name__ == '__main__':
     from Db import db
     db.init_app(app)
-    app.run(port=5000, debug=True)
 
-    if app.config['DEBUG']:
-        @app.before_first_request
-        def create_tables():
-            db.create_all()
+    app.run(port=5000, debug=True)

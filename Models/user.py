@@ -1,6 +1,6 @@
 from Db import db
 
-class UserModel(db.Model):  #continua sendo User porem UserModel fica mais inteligivel/compreensivo
+class UserModel(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -10,7 +10,7 @@ class UserModel(db.Model):  #continua sendo User porem UserModel fica mais intel
     def __init__(self, username, password):
         self.username = username
         self.password = password
-        
+
     def save_to_db(self): #funciona como insert/update
         db.session.add(self)
         db.session.commit()

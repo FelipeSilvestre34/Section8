@@ -11,10 +11,10 @@ class StoreModel(db.Model):
     def __init__(self, name):
         self.name = name
 
-    def json(self): #str para o json
+    def json(self):
         return {'name': self.name, 'items': [item.json() for item in self.items.all()]}
 
-    def save_to_db(self): #funciona como insert/update
+    def save_to_db(self):
         db.session.add(self)
         db.session.commit()
 

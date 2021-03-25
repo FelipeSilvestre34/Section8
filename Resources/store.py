@@ -2,9 +2,6 @@ from flask_restful import Resource, reqparse
 from Models.store import StoreModel
 
 class Store(Resource):
-    __tablename__ = 'stores'
-
-
     def get(self,name):
         store = StoreMode.find_by_name(name)
         if store:

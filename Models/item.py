@@ -15,10 +15,10 @@ class ItemModel(db.Model):
         self.price = price
         self.store_id = store_id
 
-    def json(self): #str para o json
+    def json(self):
         return {'name': self.name, 'price': self.price}
 
-    def save_to_db(self): #funciona como insert/update
+    def save_to_db(self):
         db.session.add(self)
         db.session.commit()
 
@@ -28,5 +28,4 @@ class ItemModel(db.Model):
 
     @classmethod
     def find_by_name(cls, name):
-        #SELECT * FROM items WHERE name=name cls=ItemModel
         return cls.query.filter_by(name=name,).first()

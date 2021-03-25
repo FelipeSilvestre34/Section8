@@ -10,9 +10,13 @@ from Resources.item import Item, ItemList
 from Resources.store import Store, StoreList
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL','sqlite:///Section6.db')
+
+app.config['DEBUG'] = True
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///Section6.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 app.secret_key = 'felipe'
+
 api = Api(app)
 
 jwt = JWT(app, authenticate, identity)
@@ -28,3 +32,8 @@ if __name__ == '__main__':
     from Db import db
     db.init_app(app)
     app.run(port=5000, debug=True)
+
+    if app.config['DEBUG']:
+        @app.before_first_request
+        def create_tables():
+            db.create_all()

@@ -18,11 +18,6 @@ class ItemModel(db.Model):
     def json(self): #str para o json
         return {'name': self.name, 'price': self.price}
 
-    @classmethod
-    def find_by_name(cls, name):
-        #SELECT * FROM items WHERE name=name cls=ItemModel
-        return cls.query.filter_by(name=name,).first()
-
     def save_to_db(self): #funciona como insert/update
         db.session.add(self)
         db.session.commit()
@@ -30,3 +25,8 @@ class ItemModel(db.Model):
     def delete_from_db(self):
         db.session.delete(self)
         db.session.commit()
+
+    @classmethod
+    def find_by_name(cls, name):
+        #SELECT * FROM items WHERE name=name cls=ItemModel
+        return cls.query.filter_by(name=name,).first()

@@ -1,4 +1,3 @@
-import sqlite3
 from Db import db
 
 class UserModel(db.Model):  #continua sendo User porem UserModel fica mais inteligivel/compreensivo
@@ -11,6 +10,10 @@ class UserModel(db.Model):  #continua sendo User porem UserModel fica mais intel
     def __init__(self, username, password):
         self.username = username
         self.password = password
+        
+    def save_to_db(self): #funciona como insert/update
+        db.session.add(self)
+        db.session.commit()
 
     @classmethod
     def find_by_username(cls, username):
@@ -19,7 +22,3 @@ class UserModel(db.Model):  #continua sendo User porem UserModel fica mais intel
     @classmethod
     def find_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()
-
-    def save_to_db(self): #funciona como insert/update
-        db.session.add(self)
-        db.session.commit()
